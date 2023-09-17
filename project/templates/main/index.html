@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+<div class="container d-flex align-items-center" style="height: 100vh;">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12">
+            <h1 class="text-h4-custom">ДОБРО ПОЖАЛОВАТЬ</h1>
+            <h1 class="text-h1-custom mt-3">ВСЕ РЕШЕНИЯ В ОДНОМ МЕСТЕ, ВСЕГДА</h1>
+            <div class="col-8">
+                <p class="text-h5-custom mt-4">Размещение ваших проектов на нашем сайте 
+                    - это простой и эффективный способ привлечь внимание потенциальных инвесторов,
+                     партнеров и клиентов. Мы создали уникальное пространство,
+                      где вы можете представить вашу идею, продукт или услугу миру
+                       и получить необходимую поддержку для вашего стартапа.</p>
+            </div>
+
+            <div class="col-lg-8 mt-5">
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-light content-text-custom me-2 button2-animation">РАЗМЕСТИТЬ</button>
+                </div>
+                <div class="col-4">
+                    <button type="button" class="btn btn-outline-dark content-text-custom me-2 button3-animation">смотреть</button>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+</div>
+
+<!--div class="container" style="height: 100vh;">
+</div-->
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'js/main/gsap.min.js' %}"></script>
+<script src="{% static 'js/main/animations.js' %}"></script>
+
+
+{% endblock %}

@@ -1,0 +1,158 @@
+html, body {
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar { width: 0 !important }
+
+.container-border
+{
+    border: 2px solid black;
+}
+
+.nav-text-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 12pt;
+}
+
+.text-h1-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 36pt;
+}
+
+.text-h3-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 24pt;
+}
+
+.text-h4-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 16pt;
+}
+
+.text-h5-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 13pt;
+}
+
+
+.text-h6-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 9pt;
+}
+
+.nav-text-custom:hover
+{
+    color: #bdbdbd;
+}
+
+
+.content-text-custom
+{
+    color: #f8f9fa;
+    font-weight: 700;
+    font-size: 20pt;
+}
+
+.nav-text-custom.btn-outline-light
+{
+    --bs-btn-hover-bg: #faf8f800;
+}
+
+.content-text-custom.btn-outline-light
+{
+    border-radius: 0px;
+    background-color: #faf8f8;
+    color: #212529;
+
+}
+
+.content-text-custom.btn-outline-light:hover
+{
+    border-radius: 0px;
+    background-color: #faf8f800;
+    color: white;
+}
+
+
+.hero_bg
+{
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.spaceplain_bg
+{
+    position: absolute;
+    left: 55%;
+    top: 60%;
+    width: 40%;
+    opacity: 0.6;
+    z-index: -1;
+    animation: spaceplain_bg_move 20s infinite linear;
+}
+
+.register-button 
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+.register-button:hover
+{
+    text-decoration: underline;
+}
+
+.form-control
+{
+    display: block;
+    background-color: #2125291f;
+    border: 2px solid rgba(153, 153, 153, 0.63);
+
+    color: white;
+    font-weight: 500;
+}
+
+.form-control:focus
+{
+    outline: none;
+    background-color: #2125291f;
+    border: 2px solid rgba(0, 0, 0, 0.836);
+    box-shadow: none;
+
+    color: white;
+    font-weight: 500;
+}
+
+
+
+
+@keyframes spaceplain_bg_move {
+    0% {
+      transform: translateY(0px) translateX(0px);
+    }
+    50% {
+        transform: translateY(20px) translateX(-50px);
+    }
+    100% {
+        transform: translateY(0px) translateX(0px);
+    }
+  }
