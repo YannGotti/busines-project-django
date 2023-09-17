@@ -67,7 +67,7 @@
                             <h3 class="text-h6-custom">Еще не имеете аккаунт?</h3>
                         </li>
                         <li class="nav-item me-2">
-                            <a href="" class="register-button">Зарегистрироваться -></a>
+                            <a onclick="showRegister()" class="register-button">Зарегистрироваться -></a>
                         </li>
 
                     </ul>
@@ -82,9 +82,10 @@
 
     {% block content %}{% endblock %}
 
-    <script src="{% static 'js/base/popper.min.js' %}"></script>
     <script src="{% static 'js/base/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/base/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/base/popper.min.js' %}"></script>
+
 
 
 

@@ -119,6 +119,7 @@ body::-webkit-scrollbar { width: 0 !important }
 .register-button:hover
 {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .form-control
