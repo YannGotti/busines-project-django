@@ -11,3 +11,7 @@ class MainPage(View):
 class AuthPage(View):
     def get(self, request):
         return render(request, 'main/auth.html')
+    
+class ProfilePage(View):
+    def get(self, request):
+        return render(request, 'main/profile.html')

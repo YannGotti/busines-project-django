@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-lanizqo*bno%di#+s9+p0t$ti_dc4tohbilqk$0pmggu#gsq!o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0746-87-117-48-86.ngrok-free.app', '127.0.0.1']
+ALLOWED_HOSTS = ['daed-87-117-48-86.ngrok-free.app', '127.0.0.1']
 
 
 # Application definition
@@ -110,7 +110,7 @@ USE_TZ = True
 
 AUTH_USER_MODEL = 'user.CustomUser'
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile/'
 
 STATIC_URL = 'static/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')

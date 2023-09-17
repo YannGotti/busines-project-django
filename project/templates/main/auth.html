@@ -2,23 +2,42 @@
 {% load static %}
 
 {% block content %}
+<div id="validateAccount" style="display: none;">
+  <div class="container">
+    <div class="row  justify-content-center">
+      <div class="col-12 text-center">
+        <h3 class="text-h3-custom mt-1">Проверьте почту для окончания регистрации.</h3>
+      </div>
+  
+      <div class="col-12 text-center">
+        <h3 class="text-h5-custom mt-1">Вы успешно авторизовались</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <div id="login">
   <div class="container d-flex align-items-center justify-content-center" style="height: 80vh;">
       <div class="row d-flex justify-content-center">
           <div class="col-12">
 
-                  <form class="form-animation form-border p-5">
+                  <form class="form-animation form-border p-5" name="login_form" id="login_form" method="post" action="{% url 'login' %}">
+                      {% csrf_token %}
                       <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label text-h4-custom">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                        <input type="email" class="form-control">
+                        <input type="email" name="username" class="form-control">
                       </div>
                       <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label text-h4-custom">ПАРОЛЬ</label>
-                        <input type="password" class="form-control">
+                        <input type="password" name="password" class="form-control">
                       </div>
                       
-                      <a href="/" type="submit" class="btn btn-outline-light" style="width: 100%; font-weight: 500; font-size: 16pt;">ВОЙТИ</a>
+                      <button type="submit" class="btn btn-outline-light" style="width: 100%; font-weight: 500; font-size: 16pt;" value="login">ВОЙТИ</button>
+                      <input type="hidden" name="next" value="{{ next }}" />
+
+                      <h3 class="text-h6-custom text-center text-danger mt-3">{% if form.errors %}Не правильный пароль или логин</p>{% endif %}</h3>
+
                   </form>
 
           </div>
@@ -31,47 +50,49 @@
     <div class="row d-flex justify-content-center">
         <div class="col-12">
 
-                <form class="form-animation form-border p-5">
+                <form class="form-animation form-border p-5" name="register_form" id="register_form">
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label text-h4-custom">ПОЛНОЕ ИМЯ</label>
-                      <input type="fullName" class="form-control">
+                      <input type="fullName" name="fullName" class="form-control">
                     </div>
 
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label text-h4-custom">ЭЛЕКТРОННАЯ ПОЧТА</label>
-                      <input type="email" class="form-control">
+                      <input type="email" name="email" class="form-control">
                     </div>
 
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label text-h4-custom">ПАРОЛЬ</label>
-                      <input type="password" class="form-control">
+                      <input type="password" name="password" class="form-control">
                     </div>
 
                     <div class="mb-3">
                       <label for="exampleInputPassword1" class="form-label text-h4-custom">ПОВТОР ПАРОЛЯ</label>
-                      <input type="password" class="form-control">
+                      <input type="password" name="submit_password" class="form-control">
                     </div>
 
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label text-h4-custom">МЕСТО ОБУЧЕНИЯ</label>
-                      <input type="userPlaceOfStudy" class="form-control">
+                      <input type="userPlaceOfStudy" name="userPlaceOfStudy" class="form-control">
                     </div>
 
                     <div class="dropdown mb-3">
                       <label for="exampleInputPassword1" class="form-label text-h4-custom">ТИП АККАУНТА</label>
-                      <button class="btn btn-outline-light dropdown-toggle text-h4-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false"  style="width: 100%;" id="type_user">
-                        Предприниматель
-                      </button>
+                      <button class="btn btn-outline-light dropdown-toggle text-h4-custom" type="button" data-bs-toggle="dropdown" aria-expanded="false"  style="width: 100%;" id="type_user">Предприниматель</button>
                       <ul class="dropdown-menu text-center bg-dark" style="width: 100%;">
                         <li><a class="dropdown-item text-light bg-dark" href="#" onclick="selectTypeUser(this)">Предприниматель</a></li>
                         <li><a class="dropdown-item text-light bg-dark" href="#" onclick="selectTypeUser(this)" >Соискатель</a></li>
                       </ul>
                     </div>
                     
-                    <a href="/" type="submit" class="btn btn-outline-light mt-2" style="width: 100%; font-weight: 500; font-size: 16pt;">ЗАРЕГИСТРИРОВАТЬСЯ</a>
-                </form>
+                    <btn  onclick="registerUser()" class="btn btn-outline-light mt-2" style="width: 100%; font-weight: 500; font-size: 16pt;">ЗАРЕГИСТРИРОВАТЬСЯ</btn>
 
+                    <h3 class="text-h6-custom text-center text-danger mt-3" id="field_validation"></h3>
+
+                </form>
+                
         </div>
+
 
         <div class="col-12 text-center">
           <h3 class="text-h6-custom mt-1">Уже зарегистрированны?</h3>
@@ -87,11 +108,15 @@
 </div>
 
 
+
+
+
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
 <script src="{% static 'js/main/gsap.min.js' %}"></script>
 <script src="{% static 'js/auth/auth_animations.js' %}"></script>
 <script src="{% static 'js/auth/logic.js' %}"></script>
+<script src="{% static 'js/auth/ajax.js' %}"></script>
 
 
 {% endblock %}

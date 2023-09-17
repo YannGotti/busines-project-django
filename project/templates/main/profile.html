@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if user.activeAccount %}
+    <h1 class="text-light">dsaffdsds</h1>
+{% endif %}
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'js/main/gsap.min.js' %}"></script>
+<script src="{% static 'js/main/animations.js' %}"></script>
+
+{% endblock %}
