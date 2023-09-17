@@ -51,6 +51,7 @@
         <div class="col-12">
 
                 <form class="form-animation form-border p-5" name="register_form" id="register_form">
+                    {% csrf_token %}
                     <div class="mb-3">
                       <label for="exampleInputEmail1" class="form-label text-h4-custom">ПОЛНОЕ ИМЯ</label>
                       <input type="fullName" name="fullName" class="form-control">
