@@ -36,7 +36,7 @@
                       <button type="submit" class="btn btn-outline-light" style="width: 100%; font-weight: 500; font-size: 16pt;" value="login">ВОЙТИ</button>
                       <input type="hidden" name="next" value="{{ next }}" />
 
-                      <h3 class="text-h6-custom text-center text-danger mt-3">{% if form.errors %}Не правильный пароль или логин</p>{% endif %}</h3>
+                      <h3 class="text-h6-custom text-center text-danger mt-3" id="validation_form"></h3>
 
                   </form>
 
@@ -86,7 +86,7 @@
                       </ul>
                     </div>
                     
-                    <btn  onclick="registerUser()" class="btn btn-outline-light mt-2" style="width: 100%; font-weight: 500; font-size: 16pt;">ЗАРЕГИСТРИРОВАТЬСЯ</btn>
+                    <btn  onclick="registerUser();" class="btn btn-outline-light mt-2" style="width: 100%; font-weight: 500; font-size: 16pt;">ЗАРЕГИСТРИРОВАТЬСЯ</btn>
 
                     <h3 class="text-h6-custom text-center text-danger mt-3" id="field_validation"></h3>
 
@@ -100,7 +100,7 @@
         </div>
 
         <div class="col-12 text-center">
-          <a onclick="showLogin()" class="register-button">Войти</a>
+          <a onclick="showLogin();startAnimationAuth();" class="register-button">Войти</a>
         </div>
         
 
@@ -108,7 +108,23 @@
   </div>
 </div>
 
+<script>
 
+  function getKey(key = 'info') {
+    var p = window.location.search;
+    p = p.match(new RegExp(key + '=([^&=]+)'));
+    return p ? p[1] : false;
+  }
+
+  let key = getKey();
+
+  if (key){
+    let validation_form = document.getElementById('validation_form');
+    validation_form.textContent = 'Не верный логин или пароль!';
+  }
+
+
+</script>
 
 
 

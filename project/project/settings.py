@@ -14,8 +14,8 @@ SECRET_KEY = 'django-insecure-lanizqo*bno%di#+s9+p0t$ti_dc4tohbilqk$0pmggu#gsq!o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['daed-87-117-48-86.ngrok-free.app', '127.0.0.1']
-CSRF_TRUSTED_ORIGINS = ["https://daed-87-117-48-86.ngrok-free.app"]
+ALLOWED_HOSTS = ['17c0-87-117-54-107.ngrok-free.app', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ["https://17c0-87-117-54-107.ngrok-free.app"]
 
 
 # Application definition
@@ -124,3 +124,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# SMTP CONFIGURATION
+SMTP_SERVER = 'smtp.mail.ru'
+SMTP_PORT = 465
+SMTP_USERNAME = 'django-server-test@mail.ru'
+SMTP_PASSWORD = 'Bdinsh4UfS3Jz4D9Krpi'

@@ -144,6 +144,32 @@ body::-webkit-scrollbar { width: 0 !important }
 }
 
 
+.profile-picture{
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.profile-picture img {
+    width: 100%;
+    height: auto;
+  }
+
+
+.sidebar {
+    position: fixed; 
+    top: 10%; 
+    left: 20px;
+    width: 250px;
+    height: 50%;
+    background-color: #18181800;
+    border-radius: 5px;
+    border: 2px solid #363636f8;
+  }
+
+.icon-panel{
+    width: 35px;
+}
 
 
 @keyframes spaceplain_bg_move {

@@ -8,5 +8,4 @@ class CustomUser(AbstractUser):
     type_user = models.CharField('Тип пользователя', max_length=50)
     userPlaceOfStudy = models.CharField('Место обучения', max_length=250)
     fullName = models.CharField('ФИО пользователя', max_length=250)
-    activeAccount = models.BooleanField('Активен ли аккаунт?', default=False)
 

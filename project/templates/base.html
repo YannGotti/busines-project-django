@@ -21,7 +21,6 @@
 
 </head>
 <body class="bg-dark " style="font-family: 'Roboto Slab', serif;">
-
     <img src="{% static 'images/background.webp' %}" alt="img" class="hero_bg">
     <img src="{% static 'images/spaceplain.webp' %}" alt="img" class="spaceplain_bg">
 
@@ -69,7 +68,7 @@
                             <h3 class="text-h6-custom">Еще не имеете аккаунт?</h3>
                         </li>
                         <li class="nav-item me-2">
-                            <a onclick="showRegister()" class="register-button">Зарегистрироваться -></a>
+                            <a onclick="showRegister();startAnimationAuth();" class="register-button">Зарегистрироваться -></a>
                         </li>
 
                     </ul>

@@ -28,7 +28,7 @@ function registerUser(){
     }
 
     if (fullName.value.length <=3 || fullName.value.length >= 25){
-        field_validation.innerText = `Имя пользователя не может быть меньше 3 символов и больше 25.`;
+        field_validation.innerText = `Имя пользователя не может быть меньше 4 символов и больше 25.`;
         return;
     }
 
@@ -39,13 +39,14 @@ function registerUser(){
 
     field_validation.innerText =``;
 
+
     let userData = 
     {
         fullName : fullName.value,
         password: password.value,
         email: email.value,
         userPlaceOfStudy: userPlaceOfStudy.value,
-        type_user : type_user
+        type_user : type_user,
     }
     
     $.ajax({
