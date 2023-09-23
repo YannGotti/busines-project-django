@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import CustomUser
+from .models import CustomUser, Questionnaire
 
 
 @admin.register(CustomUser)
@@ -42,3 +42,8 @@ class UserAdminPanel(UserAdmin):
         'date_register',
     )
 # Register your models here.
+
+@admin.register(Questionnaire)
+class QuestionnairePanel(admin.ModelAdmin):
+    model = Questionnaire
+    list_display = ('new_work', 'areaOfWork', 'old_work', 'experience', 'salary', 'freework', 'user')
