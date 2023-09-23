@@ -1,9 +1,10 @@
+import os
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.files.storage import FileSystemStorage
 from user.models import CustomUser, Questionnaire
-import os
+from django.core.exceptions import ObjectDoesNotExist
 import json
 
 class MainPage(View):
@@ -17,7 +18,20 @@ class AuthPage(View):
     
 class ProfilePage(View):
     def get(self, request):
-        return render(request, 'main/profile.html')
+
+        if (not request.user.id):
+            return render(request, 'main/profile.html')
+        
+        questionnaire = None
+
+        try:
+            questionnaire = Questionnaire.objects.get(user = request.user)
+        except :
+            return render(request, 'main/profile.html')
+
+
+        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire})
+
     
 class UploadPhotoProfile(View):
     def post(self, request):
@@ -70,3 +84,8 @@ class SendQuestionnaire(View):
         questionnaire.save()
 
         return JsonResponse("ok", safe=False)
+    
+
+class QuestionnairesPage(View):
+    def get(self, request):
+        return render(request, 'main/questionnaires.html')

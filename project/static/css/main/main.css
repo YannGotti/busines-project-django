@@ -23,6 +23,13 @@ body::-webkit-scrollbar { width: 0 !important }
     font-size: 36pt;
 }
 
+.text-h2-custom
+{
+    color: #f8f9fa;
+    font-weight: 500;
+    font-size: 28pt;
+}
+
 .text-h3-custom
 {
     color: #f8f9fa;
@@ -164,17 +171,28 @@ body::-webkit-scrollbar { width: 0 !important }
 
 .sidebar {
     position: fixed; 
-    top: 10%; 
-    left: 20px;
+    top: 12%; 
+    left: 25px;
     width: 250px;
     height: 50%;
     background-color: #18181800;
     border-radius: 5px;
-    border: 2px solid #363636f8;
   }
 
 .icon-panel{
     width: 35px;
+}
+
+
+.side-borders {
+    border-left: 2px solid #acacac21;
+    border-right: 2px solid #acacac21;
+}
+
+.custom-hr {
+    border-color: #acacac70;
+    border-width: 1px;
+    border-style: solid;
 }
 
 

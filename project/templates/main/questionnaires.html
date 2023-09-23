@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+    <div class="row">
+        <h1 class="text-h3-custom">АНКЕТЫ СОИСКАТЕЛЕЙ</h1>
+    </div>
+
+    <div class="row">
+        
+    </div>
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'js/main/gsap.min.js' %}"></script>
+
+{% if not user.is_authenticated %}
+    <script>
+        window.location.replace("/auth/");
+    </script>
+{% endif %}
+
+{% endblock %}

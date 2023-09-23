@@ -90,7 +90,7 @@ function sendQuestionnaire(user_id){
             }
         },
         success: function(data){
-            console.log(data)
+            location.reload();
         },
         error: function (jqXHR, exception) {
             return;
