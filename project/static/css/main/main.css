@@ -195,6 +195,32 @@ body::-webkit-scrollbar { width: 0 !important }
     border-style: solid;
 }
 
+.offset-button-panel{
+    display: none !important;
+}
+
+.offcanvas-custom {
+    display: none !important;
+}
+
+
+.areaOfWork::placeholder {
+    color: rgb(184, 184, 184);
+}
+
+@media screen and (max-width: 1720px) {
+    .sidebar {
+        display: none;
+    }
+
+    .offset-button-panel{
+        display: block !important;
+    }
+
+    .offcanvas-custom {
+        display: block !important;
+    }
+  }
 
 @keyframes spaceplain_bg_move {
     0% {

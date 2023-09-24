@@ -49,9 +49,11 @@
                     
                     <ul class="navbar-nav" id="navbarNav">
                         {% if user.is_authenticated %}
+
                         <a class="navbar-brand logo-animation" href="{% url 'profilePage' %}">
                             <img src="/media/photo_profile/{{user.photo_profile}}" width="50" height="50" class="d-inline-block align-text-top">
                         </a>
+                        
                         {% else %}
                             <li class="nav-item">
                                 <a href="{% url 'authPage' %}" type="button" class="btn btn-outline-light nav-text-custom button1-animation">Войти</a>

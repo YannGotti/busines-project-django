@@ -17,3 +17,22 @@ function showHideSalaryField(flexCheckDefault){
         solary_field.style.display = 'block';
     }
 }
+
+
+function selectAreaOfWork(type){
+    let areaOfWork = document.getElementById('areaOfWork');
+    areaOfWork.textContent = type.textContent;
+}
+
+function fillTypeProffesion(){
+    let profession_list = document.getElementById('profession_list');
+    for (let profession of listProffesion) {
+        profession_list.innerHTML += `<li><a class="dropdown-item text-light bg-dark" href="#" onclick="selectAreaOfWork(this)">`+ profession + `</a></li>`
+    }
+}
+
+fillTypeProffesion();
+
+
+
+  

@@ -35,7 +35,7 @@ function sendQuestionnaire(user_id){
     let form = document.forms.questionnaire_form;
 
     let new_work = form.elements.new_work;
-    let areaOfWork = form.elements.areaOfWork;
+    let areaOfWork = document.getElementById('areaOfWork').textContent;
     let old_work = form.elements.old_work;
     let experience = form.elements.experience;
     let salary = form.elements.salary;
@@ -43,11 +43,6 @@ function sendQuestionnaire(user_id){
     let id = user_id;
 
     if (new_work.value.length >= 200){
-        field_validation.innerText = `Поля не могут иметь размер более 200 символов`;
-        return;
-    }
-
-    if (areaOfWork.value.length >= 200){
         field_validation.innerText = `Поля не могут иметь размер более 200 символов`;
         return;
     }
@@ -62,7 +57,7 @@ function sendQuestionnaire(user_id){
         return;
     }
 
-    if (!isNumeric(salary.value)) {
+    if (!isNumeric(salary.value) && !freework) {
         field_validation.innerText = "Пожалуйста, введите только числа в поле желаемой зарплаты.";
         return;
     }
@@ -72,7 +67,7 @@ function sendQuestionnaire(user_id){
     let Data = 
     {
         new_work : new_work.value,
-        areaOfWork: areaOfWork.value,
+        areaOfWork: areaOfWork,
         old_work: old_work.value,
         experience: experience.value,
         salary : salary.value,

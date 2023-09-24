@@ -1,6 +1,6 @@
 import os
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.generic.base import View
 from django.core.files.storage import FileSystemStorage
 from user.models import CustomUser, Questionnaire
@@ -27,10 +27,31 @@ class ProfilePage(View):
         try:
             questionnaire = Questionnaire.objects.get(user = request.user)
         except :
+            return render(request, 'main/profile.html', context={'user_data': request.user})
+
+
+        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': request.user})
+    
+class ProfileUserPage(View):
+    def get(self, request, pk):
+        
+        questionnaire = None
+        user = None
+
+        try:
+            user = CustomUser.objects.get(id = pk)
+        except:
             return render(request, 'main/profile.html')
 
 
-        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire})
+        try:
+
+            questionnaire = Questionnaire.objects.get(user = user)
+        except :
+            return render(request, 'main/profile.html' , context={'user_data': user})
+
+
+        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire, 'user_data': user})
 
     
 class UploadPhotoProfile(View):
@@ -88,4 +109,25 @@ class SendQuestionnaire(View):
 
 class QuestionnairesPage(View):
     def get(self, request):
-        return render(request, 'main/questionnaires.html')
+        questionnaires = Questionnaire.objects.all()
+
+        context = {
+            'questionnaires' : questionnaires
+        }
+
+        return render(request, 'main/questionnaires.html', context=context)
+    
+
+class QuestionnairesFilter(View):
+    def get(self, request):
+        questionnaires = Questionnaire.objects.filter(areaOfWork = request.GET.get('filter'))
+
+
+        data = list(questionnaires.values())
+
+        data = {
+            'type_user' : request.user.type_user,
+            'data' : data
+        }
+
+        return JsonResponse(data, safe=False)
