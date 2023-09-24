@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.files.storage import FileSystemStorage
-from user.models import CustomUser, Questionnaire, Project
+from user.models import CustomUser, Questionnaire, Project, Notification
 import json
 
 class MainPage(View):
@@ -193,3 +193,22 @@ class ProjectsPage(View):
         }
 
         return render(request, 'main/projects.html', context=context)
+    
+
+class SendApplication(View):
+    def post(self, request):
+
+        data = request.POST
+
+        message = data.get('message')
+        number_phone = data.get('number_phone')
+        recipient_id = data.get('recipient_id')
+        sender_id = data.get('sender_id')
+
+        recipient = CustomUser.objects.get(id=recipient_id)
+        sender = CustomUser.objects.get(id=sender_id)
+
+        notification = Notification(message=message, number_phone=number_phone, recipient=recipient, sender=sender)
+        notification.save()
+
+        return JsonResponse("ok", safe=False)

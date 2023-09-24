@@ -13,4 +13,6 @@ urlpatterns = [
     path('questionnaires/filter/', views.QuestionnairesFilter.as_view()),
     path('projects/', views.ProjectsPage.as_view(), name="projectsPage"),
 
+    path('application/sendApplication/', views.SendApplication.as_view()),
+
 ]

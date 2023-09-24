@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from .models import CustomUser, Questionnaire, Project
+from .models import CustomUser, Questionnaire, Project, Notification
 
 
 @admin.register(CustomUser)
@@ -52,3 +52,8 @@ class QuestionnairePanel(admin.ModelAdmin):
 class ProjectPanel(admin.ModelAdmin):
     model = Project
     list_display = ('nameProject', 'waitSolary', 'description', 'list_skill', 'list_task', 'posts', 'user')
+
+@admin.register(Notification)
+class NotificationPanel(admin.ModelAdmin):
+    model = Notification
+    list_display = ('message', 'number_phone', 'recipient', 'sender', 'state', 'isAccept')

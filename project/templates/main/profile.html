@@ -260,8 +260,8 @@
                                             <p class="card-text text-h5-custom m-2">{{ proj.posts }}</p>
 
                                             {% if user.type_user == 'Соискатель' %}
-                                            <div class="col-3">
-                                                <a href="#" class="btn btn-outline-light text-h5-custom mt-3">Подать заявку на участие</a>
+                                            <div class="col-6 col-md-3 mol-lg-3">
+                                                <button class="btn btn-outline-light text-h5-custom mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="SetRecipient('{{proj.user.id}}');SetSender('{{user.id}}');">ПОДАТЬ ЗАЯВКУ НА УЧАСТИЕ</button>
                                             </div>
                                             {% endif %}
                                             
@@ -474,20 +474,31 @@
 
 {% endif %}
 
+<div id="modal_application_div">
+
+</div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/main/jquery.inputmask.min.js' %}"></script>
 <script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
 <script src="{% static 'js/main/gsap.min.js' %}"></script>
 <script src="{% static 'js/profile/profile_animation.js' %}"></script>
 <script src="{% static 'js/data.js' %}"></script>
 <script src="{% static 'js/profile/logic.js' %}"></script>
 <script src="{% static 'js/profile/ajax.js' %}"></script>
+<script src="{% static 'js/modal_application.js' %}"></script>
 
 {% if not user.is_authenticated %}
     <script>
         window.location.replace("/auth/");
     </script>
 {% endif %}
+
+<script>
+    $(document).ready(function() {
+        $('#phone').inputmask("7 (999) 999-9999");
+    });
+</script>
 
 {% endblock %}
 

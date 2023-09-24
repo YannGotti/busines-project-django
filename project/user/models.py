@@ -49,7 +49,7 @@ class Notification(models.Model):
     message = models.CharField('Краткая информация', max_length=200)
     number_phone = models.CharField('Номер телефона', max_length=20)
     state = models.CharField('Состояние', default='Active', max_length=50)
-    isAccept = models.BooleanField('Принял ли?', default=True)
+    isAccept = models.BooleanField('Принял ли?', default=False)
     recipient = models.ForeignKey('CustomUser', related_name='RecipientUser', on_delete=models.CASCADE)
     sender = models.ForeignKey('CustomUser', related_name='SenderUser', on_delete=models.CASCADE) 
 
