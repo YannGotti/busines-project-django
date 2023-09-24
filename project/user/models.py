@@ -25,3 +25,38 @@ class Questionnaire(models.Model):
         verbose_name = 'Анкета'
         verbose_name_plural = 'Анкеты'
 
+
+class Project(models.Model):
+    nameProject = models.CharField('Назваение проекта', max_length=200)
+    waitSolary = models.CharField('Ожидаемая оплата', max_length=200)
+    description = models.CharField('Описание проекта', max_length=300)
+    list_skill = models.CharField('Перечень требуемых навыков', max_length=200)
+    list_task = models.CharField('Перечень требуемых задач', max_length=200)
+
+    posts = models.CharField('Необходимые должности', max_length=1000) 
+
+    user = models.ForeignKey('CustomUser', related_name='User', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user}'
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
+
+
+class Notification(models.Model):
+    message = models.CharField('Краткая информация', max_length=200)
+    number_phone = models.CharField('Номер телефона', max_length=20)
+    state = models.CharField('Состояние', default='Active', max_length=50)
+    isAccept = models.BooleanField('Принял ли?', default=True)
+    recipient = models.ForeignKey('CustomUser', related_name='RecipientUser', on_delete=models.CASCADE)
+    sender = models.ForeignKey('CustomUser', related_name='SenderUser', on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return f'{self.recipient}'
+
+    class Meta:
+        verbose_name = 'Уведомление'
+        verbose_name_plural = 'Уведомления'
+

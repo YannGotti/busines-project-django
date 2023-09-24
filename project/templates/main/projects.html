@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+
+
+<div class="container">
+
+    {% if projects|length > 0 %}
+
+    <div class="row d-flex justify-content-between mt-3">
+        <div class="col-12 col-lg-3 mt-3">
+            <h1 class="text-h3-custom">ПРОЕКТЫ ПРЕДПРИНИМАТЕЛЕЙ</h1>
+        </div>
+    </div>
+
+
+    <div class="row ustify-content-center mt-5" style="text-transform: uppercase;" id="questionnaires_cards">
+        {% for project in projects %}
+        <div class="col-12 col-md-6 col-lg-6">
+            <div class="card bg-dark">
+                <div class="card-body">
+                    <h5 class="card-title text-h4-custom">{{ project.nameProject }}</h5>
+
+                    <h1 class="text-h4-custom">Ожидаемая оплата труда: </h1>
+                        <p class="card-text text-h5-custom m-2">{{ project.waitSolary }}</p>
+
+                    <h1 class="text-h4-custom">ОПИСАНИЕ: </h1>
+                        <p class="card-text text-h5-custom m-2">{{ project.description }}</p>
+
+                    <h1 class="text-h4-custom">Требуемые навыки от соискателя: </h1>
+                        <p class="card-text text-h5-custom m-2">{{ project.list_skill }}</p>
+
+                    <h1 class="text-h4-custom">Необходимо сделать: </h1>
+                        <p class="card-text text-h5-custom m-2">{{ project.list_task }}</p>
+
+                    <h1 class="text-h4-custom">Набор сотрудников: </h1>
+                        <p class="card-text text-h5-custom m-2">{{ project.posts }}</p>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <a href="/@id{{project.user.id}}/" class="btn btn-light text-h5-custom text-dark">Посмотреть профиль предпринимателя</a>
+                            </div>
+    
+                            {% if user.type_user == 'Соискатель' %}
+                            <div class="col-6">
+                                <a href="#" class="btn btn-outline-light text-h5-custom">Подать заявку на участие</a>
+                            </div>
+                            {% endif %}
+                        </div>
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+        
+        {% endfor %}
+    </div>
+
+
+    {% else %}
+
+    {% endif %}
+
+    
+</div>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{% static 'js/main/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'js/main/gsap.min.js' %}"></script>
+<script src="{% static 'js/data.js' %}"></script>
+<script src="{% static 'js/questionnaires/logic.js' %}"></script>
+<script src="{% static 'js/questionnaires/ajax.js' %}"></script>
+<script src="{% static 'js/profile/profile_animation.js' %}"></script>
+
+{% if not user.is_authenticated %}
+    <script>
+        window.location.replace("/auth/");
+    </script>
+{% endif %}
+
+{% endblock %}

@@ -8,6 +8,19 @@ function showQuestionnairePanel(){
     questionnaire_form_block.style.display = 'block';
 }
 
+function showProjectPanel(){
+    try {
+        let project_panel = document.getElementById('project_panel');
+        project_panel.style.display = 'none';
+    } catch (error) {
+        
+    }
+    
+
+    let project_form_block = document.getElementById('project_form_block');
+    project_form_block.style.display = 'block';
+}
+
 function showHideSalaryField(flexCheckDefault){
     let solary_field = document.getElementById('solary_field');
     if (flexCheckDefault.checked){
@@ -32,6 +45,35 @@ function fillTypeProffesion(){
 }
 
 fillTypeProffesion();
+
+function addFieldPostInput(element){
+    let postProjectGrid = document.getElementById('postProjectGrid');
+
+    if (element.parentNode != postProjectGrid.lastElementChild){
+        return;
+    }
+
+    postProjectGrid.insertAdjacentHTML('beforeend', 
+        `
+        <div class="col-12 col-md-12 col-lg-6">
+            <input type="text" name="postProject" placeholder="web designer" class="form-control input_post m-2" onfocus="addFieldPostInput(this)" onblur="delFieldPostInput(this)">
+        </div>
+        `
+    );
+
+}
+
+function delFieldPostInput(element){
+    let postProjectGrid = document.getElementById('postProjectGrid');
+
+    if ((element.value == '' || element.value == null) && (postProjectGrid.lastElementChild.children[0].value == '' || postProjectGrid.lastElementChild.children[0].value == null)){
+        postProjectGrid.lastElementChild.remove();
+    }
+}
+
+
+
+
 
 
 

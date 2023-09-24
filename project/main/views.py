@@ -1,10 +1,9 @@
 import os
 from django.shortcuts import render
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.files.storage import FileSystemStorage
-from user.models import CustomUser, Questionnaire
-from django.core.exceptions import ObjectDoesNotExist
+from user.models import CustomUser, Questionnaire, Project
 import json
 
 class MainPage(View):
@@ -23,19 +22,32 @@ class ProfilePage(View):
             return render(request, 'main/profile.html')
         
         questionnaire = None
+        project = None
 
-        try:
-            questionnaire = Questionnaire.objects.get(user = request.user)
-        except :
-            return render(request, 'main/profile.html', context={'user_data': request.user})
+        if (request.user.type_user == 'Предприниматель'):
+            try:
+                project = Project.objects.filter(user = request.user)
+            except :
+                return render(request, 'main/profile.html', context={'user_data': request.user})
+            
+            return render(request, 'main/profile.html', context={'project' : project , 'user_data': request.user})
+        
+        else:
+            try:
+                questionnaire = Questionnaire.objects.get(user = request.user)
+            except :
+                return render(request, 'main/profile.html', context={'user_data': request.user})
+        
+            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': request.user})
 
 
-        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': request.user})
+
     
 class ProfileUserPage(View):
     def get(self, request, pk):
         
         questionnaire = None
+        project = None
         user = None
 
         try:
@@ -44,14 +56,21 @@ class ProfileUserPage(View):
             return render(request, 'main/profile.html')
 
 
-        try:
-
-            questionnaire = Questionnaire.objects.get(user = user)
-        except :
-            return render(request, 'main/profile.html' , context={'user_data': user})
-
-
-        return render(request, 'main/profile.html', context={'questionnaire' : questionnaire, 'user_data': user})
+        if (user.type_user == 'Предприниматель'):
+            try:
+                project = Project.objects.filter(user = user)
+            except :
+                return render(request, 'main/profile.html', context={'user_data': user})
+            
+            return render(request, 'main/profile.html', context={'project' : project , 'user_data': user})
+        
+        else:
+            try:
+                questionnaire = Questionnaire.objects.get(user = user)
+            except :
+                return render(request, 'main/profile.html', context={'user_data': user})
+        
+            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': user})
 
     
 class UploadPhotoProfile(View):
@@ -131,3 +150,46 @@ class QuestionnairesFilter(View):
         }
 
         return JsonResponse(data, safe=False)
+    
+
+class PublicProject(View):
+    def post(self, request):
+        data = request.POST
+
+        nameProject = data.get('nameProject')
+        waitSolary = data.get('waitSolary')
+        description = data.get('description')
+        list_skill = data.get('list_skill')
+        list_task = data.get('list_task')
+        posts = data.getlist('posts[]')
+
+        id_user = data.get('id')
+        user = CustomUser.objects.get(id = id_user)
+
+        posts_string = ''
+        for post in posts:
+            posts_string += f'{post};'
+
+        project = Project(
+            nameProject = nameProject,
+            waitSolary = waitSolary,
+            description = description,
+            list_skill = list_skill,
+            list_task = list_task,
+            posts = posts_string,
+            user = user
+        )
+
+        project.save()
+        return JsonResponse("ok", safe=False)
+    
+
+class ProjectsPage(View):
+    def get(self, request):
+        projects = Project.objects.all()
+
+        context = {
+            'projects' : projects
+        }
+
+        return render(request, 'main/projects.html', context=context)
