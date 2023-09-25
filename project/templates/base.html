@@ -24,6 +24,8 @@
     <img src="{% static 'images/background.webp' %}" alt="img" class="hero_bg">
     <img src="{% static 'images/spaceplain.webp' %}" alt="img" class="spaceplain_bg">
 
+    
+
     <div class="container-fluid">
         <div class="row">
             <nav class="navbar navbar-expand-lg">
@@ -50,9 +52,26 @@
                     <ul class="navbar-nav" id="navbarNav">
                         {% if user.is_authenticated %}
 
-                        <a class="navbar-brand logo-animation" href="{% url 'profilePage' %}">
-                            <img src="/media/photo_profile/{{user.photo_profile}}" width="50" height="50" class="d-inline-block align-text-top">
-                        </a>
+                        <div class="row">
+                            {% if notifications|length != 0 %}
+                            <div class="col-5 mt-3">
+                                <a href="{% url 'applicationsPage' %}" class="position-relative navbar-brand logo-animation ">
+                                    <img src="{% static 'images/notification.png' %}" width="25" class="d-inline-block">
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 12px;">{{notifications|length}}</span>
+                                </a>
+                            </div>
+                            {% endif %}
+                            
+                            <div class="col-5">
+                                <a class="navbar-brand logo-animation" href="{% url 'profilePage' %}">
+                                    <img src="/media/photo_profile/{{user.photo_profile}}" width="50" height="50" class="d-inline-block align-text-top">
+                                </a>
+                            </div>
+                        </div>
+
+                        
+
+                        
                         
                         {% else %}
                             <li class="nav-item">

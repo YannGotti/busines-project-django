@@ -54,7 +54,11 @@
                             <h1 class="text-h5-custom">{{user.username}}</h1>
                             <h1 class="text-h5-custom">{{user.userPlaceOfStudy}}</h1>
                             <h1 class="text-h5-custom">Тип аккаунта: {{user.type_user}}</h1>
-                            <button type="button" class="btn btn-outline-light content-text-custom me-2 button2-animation mt-2 mb-5" onclick="showProjectPanel()">ДОБАВИТЬ ПРОЕКТ</button>
+
+                            {% if user.type_user == 'Предприниматель' %}
+                                <button type="button" class="btn btn-outline-light content-text-custom me-2 button2-animation mt-2 mb-5" onclick="showProjectPanel()">ДОБАВИТЬ ПРОЕКТ</button>
+                            {% endif %}
+                            
                         {% else %}
                             <h1 class="text-h3-custom">{{user_data.fullName}}</h1>
                             <h1 class="text-h5-custom">{{user_data.username}}</h1>

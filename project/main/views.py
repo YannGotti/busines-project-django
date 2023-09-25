@@ -195,6 +195,12 @@ class ProjectsPage(View):
         return render(request, 'main/projects.html', context=context)
     
 
+class Application(View):
+    def get(self, request):
+        notifications = Notification.objects.filter(recipient = request.user)
+        return render(request, 'main/applications.html', context={'notifications' : notifications})
+    
+
 class SendApplication(View):
     def post(self, request):
 
