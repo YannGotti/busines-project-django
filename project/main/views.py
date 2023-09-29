@@ -1,10 +1,11 @@
 import os
+import json
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.files.storage import FileSystemStorage
 from user.models import CustomUser, Questionnaire, Project, Notification
-import json
+from user.smtp import SMTPServer
 
 class MainPage(View):
     def get(self, request):
@@ -24,21 +25,25 @@ class ProfilePage(View):
         questionnaire = None
         project = None
 
+        me_notifications = Notification.objects.filter(recipient=request.user, state='Archive')
+        answer_notifications = Notification.objects.filter(sender=request.user, state='Archive')
+
+
         if (request.user.type_user == 'Предприниматель'):
             try:
                 project = Project.objects.filter(user = request.user)
             except :
-                return render(request, 'main/profile.html', context={'user_data': request.user})
+                return render(request, 'main/profile.html', context={'user_data': request.user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
             
-            return render(request, 'main/profile.html', context={'project' : project , 'user_data': request.user})
+            return render(request, 'main/profile.html', context={'project' : project , 'user_data': request.user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
         
         else:
             try:
                 questionnaire = Questionnaire.objects.get(user = request.user)
             except :
-                return render(request, 'main/profile.html', context={'user_data': request.user})
+                return render(request, 'main/profile.html', context={'user_data': request.user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
         
-            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': request.user})
+            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': request.user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
 
 
 
@@ -49,28 +54,32 @@ class ProfileUserPage(View):
         questionnaire = None
         project = None
         user = None
+        
 
         try:
             user = CustomUser.objects.get(id = pk)
         except:
             return render(request, 'main/profile.html')
 
+        me_notifications = Notification.objects.filter(recipient=user, state='Archive')
+        answer_notifications = Notification.objects.filter(sender=user, state='Archive')
+
 
         if (user.type_user == 'Предприниматель'):
             try:
                 project = Project.objects.filter(user = user)
             except :
-                return render(request, 'main/profile.html', context={'user_data': user})
+                return render(request, 'main/profile.html', context={'user_data': user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
             
-            return render(request, 'main/profile.html', context={'project' : project , 'user_data': user})
+            return render(request, 'main/profile.html', context={'project' : project , 'user_data': user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
         
         else:
             try:
                 questionnaire = Questionnaire.objects.get(user = user)
             except :
-                return render(request, 'main/profile.html', context={'user_data': user})
+                return render(request, 'main/profile.html', context={'user_data': user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
         
-            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': user})
+            return render(request, 'main/profile.html', context={'questionnaire' : questionnaire , 'user_data': user, 'me_notifications': me_notifications, 'answer_notifications':answer_notifications})
 
     
 class UploadPhotoProfile(View):
@@ -197,7 +206,7 @@ class ProjectsPage(View):
 
 class Application(View):
     def get(self, request):
-        notifications = Notification.objects.filter(recipient = request.user)
+        notifications = Notification.objects.filter(recipient=request.user, state='Active')
         return render(request, 'main/applications.html', context={'notifications' : notifications})
     
 
@@ -210,11 +219,83 @@ class SendApplication(View):
         number_phone = data.get('number_phone')
         recipient_id = data.get('recipient_id')
         sender_id = data.get('sender_id')
+        project_id = data.get('project_id')
+        project = None
+
+        if (project_id):
+            project = Project.objects.get(id=project_id)
+
 
         recipient = CustomUser.objects.get(id=recipient_id)
         sender = CustomUser.objects.get(id=sender_id)
 
-        notification = Notification(message=message, number_phone=number_phone, recipient=recipient, sender=sender)
+        notification = Notification(message=message, number_phone=number_phone, recipient=recipient, sender=sender, project=project)
         notification.save()
 
         return JsonResponse("ok", safe=False)
+    
+
+
+class SubmitApplication(View):
+    def post(self, request):
+        data = request.POST
+
+        id = data.get('id')
+        recipient_id = data.get('recipient_id')
+
+        user = CustomUser.objects.get(id=recipient_id)
+
+        notification = Notification.objects.get(id=id)
+
+        if (user != notification.recipient):
+            return JsonResponse("error", safe=False)
+            
+
+        notification.state = 'Archive'
+        notification.isAccept = True
+        notification.save()
+
+        smtp_server = SMTPServer()
+        smtp_server.send_message(f'Здравствуйте - {user.fullName}, ОТВЕТ НА ЗАЯВКУ', GenerateMail(notification.sender, notification.project, True), user.email, html_content = None)
+
+        return JsonResponse("ok", safe=False)
+    
+class RefusalApplication(View):
+    def post(self, request):
+        data = request.POST
+
+        id = data.get('id')
+        recipient_id = data.get('recipient_id')
+
+        user = CustomUser.objects.get(id=recipient_id)
+
+        notification = Notification.objects.get(id=id)
+
+        if (user != notification.recipient):
+            return JsonResponse("error", safe=False)
+            
+
+        notification.state = 'Archive'
+        notification.isAccept = False
+        notification.save()
+
+        smtp_server = SMTPServer()
+        smtp_server.send_message(f'Здравствуйте - {user.fullName}, ОТВЕТ НА ЗАЯВКУ', GenerateMail(notification.sender, notification.project, False), user.email, html_content = None)
+
+        return JsonResponse("ok", safe=False)
+
+
+def GenerateMail(user, project, success):
+    message = ''
+    if(success):
+        if (project):
+            message = f"<p>Пользователь {user.fullName} принял вашу заявку на участие в проекте {project.nameProject}</p>\n<p>Ожидайте, скоро он свяжется с вами!</p>"
+        else:
+            message = f"<p>Пользователь {user.fullName} принял вашу заявку с сотрудничеством</p>\n<p>Ожидайте, скоро он свяжется с вами!</p>"
+    else:
+        if (project):
+            message = f"<p>Пользователь {user.fullName} отказал в вашей заявке на участие в проекте {project.nameProject}</p>"
+        else:
+            message = f"<p>Пользователь {user.fullName} не принял вашу заявку о сотрудничестве</p>"
+
+    return message

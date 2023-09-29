@@ -1,9 +1,6 @@
-from django.shortcuts import render, redirect, HttpResponse
-from django.http import JsonResponse
-from django.core import serializers
+from django.shortcuts import HttpResponse
 from django.views.generic.base import View
 from .models import CustomUser
-from django.template.loader import render_to_string 
 from django.contrib.sites.shortcuts import get_current_site 
 from django.utils.encoding import force_bytes, force_str 
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode 

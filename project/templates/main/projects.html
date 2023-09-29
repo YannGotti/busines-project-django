@@ -46,7 +46,7 @@
     
                             {% if user.type_user == 'Соискатель' %}
                             <div class="col-6">
-                                <button class="btn btn-outline-light text-h5-custom" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="SetRecipient('{{project.user.id}}');SetSender('{{user.id}}');">ПОДАТЬ ЗАЯВКУ НА УЧАСТИЕ</button>
+                                <button class="btn btn-outline-light text-h5-custom" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="SetRecipient('{{project.user.id}}');SetSender('{{user.id}}');SetProject('{{project.id}}')">ПОДАТЬ ЗАЯВКУ НА УЧАСТИЕ</button>
                             </div>
                             {% endif %}
                         </div>

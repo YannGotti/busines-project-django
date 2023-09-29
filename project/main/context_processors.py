@@ -13,7 +13,7 @@ def common_notifications(request):
     except:
         notifications = None
     try:
-        notifications = Notification.objects.filter(recipient = user)
+        notifications = Notification.objects.filter(recipient=user, state='Active')
     except:
         notifications = None
     

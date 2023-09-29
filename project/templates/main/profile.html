@@ -265,7 +265,7 @@
 
                                             {% if user.type_user == 'Соискатель' %}
                                             <div class="col-6 col-md-3 mol-lg-3">
-                                                <button class="btn btn-outline-light text-h5-custom mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="SetRecipient('{{proj.user.id}}');SetSender('{{user.id}}');">ПОДАТЬ ЗАЯВКУ НА УЧАСТИЕ</button>
+                                                <button class="btn btn-outline-light text-h5-custom mt-3" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" onclick="SetRecipient('{{proj.user.id}}');SetSender('{{user.id}}');SetProject('{{proj.id}}')">ПОДАТЬ ЗАЯВКУ НА УЧАСТИЕ</button>
                                             </div>
                                             {% endif %}
                                             
@@ -425,7 +425,7 @@
 
     {% if user_data.id == user.id %}
 
-        <div class="sidebar">
+        <div class="sidebar" style="text-transform: uppercase;">
             <div class="container-fluid">
                 <div class="row mt-3 d-flex justify-content-center text-center">
                     <div class="col-6 p-1 text-light">
@@ -440,6 +440,95 @@
 
                     </div>
                 </div>
+
+                {% if answer_notifications|length != 0 %}
+                <div class="row sidebar-scroll mt-3 mb-3 d-flex justify-content-center">
+                    <div class="col-12 text-center mt-3">
+                        <h1 class="text-h5-custom text-light">Ответы на ваши заявки</h1>
+                    </div>
+
+
+                    {% for notification in answer_notifications %}
+                        <div class="row mt-2 mb-3 d-flex justify-content-center"  style="background-color: rgba(73, 73, 73, 0.39); width: 90%;">
+                            <div class="col-12 text-center mt-1">
+                                <a href="/@id{{notification.recipient.id}}/" class="text-h5-custom">От: {{notification.recipient.fullName}}</a>
+                            </div>
+
+                            {% if notification.project != None %}
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Вступление в проект: {{notification.project.nameProject}}</h1>
+                                </div>
+                            {% else %}
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Предложение о сотрудничестве</h1>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="col-12 text-center  mt-1">
+                                <h1 class="text-h5-custom text-light">Решение пользователя:</h1>
+                                {% if notification.isAccept %}
+                                    <h1 class="text-h5-custom text-light">Принял</h1>
+                                {% else %}
+                                    <h1 class="text-h5-custom text-light">Отказал</h1>
+                                {% endif %}
+
+                            </div>
+
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                
+
+                {% if me_notifications|length != 0 %}
+
+                    <div class="row sidebar-scroll mt-3 mb-3 d-flex justify-content-center">
+                        <div class="col-12 text-center mt-3">
+                            <h1 class="text-h5-custom text-light">Ваши последние уведомления</h1>
+                        </div>
+
+
+                        {% for notification in me_notifications %}
+                            <div class="row mt-2 mb-3 d-flex justify-content-center"  style="background-color: rgba(73, 73, 73, 0.39); width: 90%;">
+                                <div class="col-12 text-center mt-1">
+                                    <a href="/@id{{notification.sender.id}}/" class="text-h5-custom">От: {{notification.sender.fullName}}</a>
+                                </div>
+
+                                {% if notification.project != None %}
+                                    <div class="col-12 text-center  mt-1">
+                                        <h1 class="text-h5-custom text-light">Вступление в проект: {{notification.project.nameProject}}</h1>
+                                    </div>
+                                {% else %}
+                                    <div class="col-12 text-center  mt-1">
+                                        <h1 class="text-h5-custom text-light">Предложение о сотрудничестве</h1>
+                                    </div>
+                                {% endif %}
+
+
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Ваше решение:</h1>
+                                    {% if notification.isAccept %}
+                                        <h1 class="text-h5-custom text-light">Приняли</h1>
+                                    {% else %}
+                                        <h1 class="text-h5-custom text-light">Отказали</h1>
+                                    {% endif %}
+
+                                </div>
+
+
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                  
+                {% endif %}
+
+                
+
             </div>
         </div>
       
@@ -458,7 +547,7 @@
                     <div class="row">
                         <div class="col-12 text-light">
             
-                            <a href="#" type="button" class="btn btn-dark text-h5-custom button2-animation mt-2" >
+                            <a href="{% url 'projectsPage' %}" type="button" class="btn btn-dark text-h5-custom button2-animation mt-2" >
                                 <img src="{% static 'images/projects-icon.png' %}" class="icon-panel" alt="Проекты"> ПРОЕКТЫ
                             </a>
             
@@ -469,6 +558,89 @@
             
                         </div>
                     </div>
+
+                    {% if answer_notifications|length != 0 %}
+                <div class="row sidebar-scroll mt-3 mb-3 d-flex justify-content-center">
+                    <div class="col-12 text-center mt-3">
+                        <h1 class="text-h5-custom text-light">Ответы на ваши заявки</h1>
+                    </div>
+
+
+                    {% for notification in answer_notifications %}
+                        <div class="row mt-2 mb-3 d-flex justify-content-center"  style="background-color: rgba(73, 73, 73, 0.39); width: 90%;">
+                            <div class="col-12 text-center mt-1">
+                                <a href="/@id{{notification.recipient.id}}/" class="text-h5-custom">От: {{notification.recipient.fullName}}</a>
+                            </div>
+
+                            {% if notification.project != None %}
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Вступление в проект: {{notification.project.nameProject}}</h1>
+                                </div>
+                            {% else %}
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Предложение о сотрудничестве</h1>
+                                </div>
+                            {% endif %}
+
+
+                            <div class="col-12 text-center  mt-1">
+                                <h1 class="text-h5-custom text-light">Решение пользователя:</h1>
+                                {% if notification.isAccept %}
+                                    <h1 class="text-h5-custom text-light">Принял</h1>
+                                {% else %}
+                                    <h1 class="text-h5-custom text-light">Отказал</h1>
+                                {% endif %}
+
+                            </div>
+
+
+
+                        </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                    {% if me_notifications|length != 0 %}
+
+                    <div class="row mt-3 mb-3 sidebar-scroll d-flex justify-content-center" style="background-color: rgba(73, 73, 73, 0.39);">
+                        <div class="col-12 text-center mt-3">
+                            <h1 class="text-h5-custom text-light">Ваши последние уведомления</h1>
+                        </div>
+
+                        {% for notification in me_notifications %}
+                            <div class="row mt-2 mb-3 d-flex justify-content-center"  style="background-color: rgba(73, 73, 73, 0.39); width: 90%;">
+                                <div class="col-12 text-center mt-1">
+                                    <a href="/@id{{notification.sender.id}}/" class="text-h5-custom">От: {{notification.sender.fullName}}</a>
+                                </div>
+
+                                {% if notification.project != None %}
+                                    <div class="col-12 text-center  mt-1">
+                                        <h1 class="text-h5-custom text-light">Вступление в проект: {{notification.project.nameProject}}</h1>
+                                    </div>
+                                {% else %}
+                                    <div class="col-12 text-center  mt-1">
+                                        <h1 class="text-h5-custom text-light">Предложение о сотрудничестве</h1>
+                                    </div>
+                                {% endif %}
+
+                                <div class="col-12 text-center  mt-1">
+                                    <h1 class="text-h5-custom text-light">Ваше решение:</h1>
+                                    {% if notification.isAccept %}
+                                        <h1 class="text-h5-custom text-light">Приняли</h1>
+                                    {% else %}
+                                        <h1 class="text-h5-custom text-light">Отказали</h1>
+                                    {% endif %}
+
+                                </div>
+
+
+
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                  
+                {% endif %}
                 </div>
             </div>
         </div>

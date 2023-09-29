@@ -52,6 +52,7 @@ class Notification(models.Model):
     isAccept = models.BooleanField('Принял ли?', default=False)
     recipient = models.ForeignKey('CustomUser', related_name='RecipientUser', on_delete=models.CASCADE)
     sender = models.ForeignKey('CustomUser', related_name='SenderUser', on_delete=models.CASCADE) 
+    project = models.ForeignKey('Project', related_name='Project', on_delete=models.CASCADE, null=True) 
 
     def __str__(self):
         return f'{self.recipient}'

@@ -1,5 +1,6 @@
 let recipient = 0
 let sender = 0
+let project = null
 
 function SetRecipient(rec){
     recipient = rec
@@ -7,6 +8,10 @@ function SetRecipient(rec){
 
 function SetSender(sen){
     sender = sen
+}
+
+function SetProject(project_id){
+    project = project_id
 }
 
 function ShowModal(){
@@ -90,7 +95,8 @@ function SendApplication(){
         message : message.value,
         number_phone : number_phone.value,
         recipient_id : recipient,
-        sender_id : sender
+        sender_id : sender,
+        project_id : project
     }
 
     $.ajax({
@@ -103,7 +109,7 @@ function SendApplication(){
             }
         },
         success: function(data){
-            //location.reload();
+            location.reload();
         },
         error: function (jqXHR, exception) {
             return;

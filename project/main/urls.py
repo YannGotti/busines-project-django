@@ -15,5 +15,7 @@ urlpatterns = [
 
     path('application/', views.Application.as_view(), name='applicationsPage'),
     path('application/sendApplication/', views.SendApplication.as_view()),
+    path('application/submitApplication/', views.SubmitApplication.as_view()),
+    path('application/refusalApplication/', views.RefusalApplication.as_view()),
 
 ]

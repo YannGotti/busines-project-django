@@ -56,4 +56,4 @@ class ProjectPanel(admin.ModelAdmin):
 @admin.register(Notification)
 class NotificationPanel(admin.ModelAdmin):
     model = Notification
-    list_display = ('message', 'number_phone', 'recipient', 'sender', 'state', 'isAccept')
+    list_display = ('message', 'number_phone', 'recipient', 'sender', 'state', 'isAccept', 'project')

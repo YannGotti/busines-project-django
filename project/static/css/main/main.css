@@ -174,10 +174,27 @@ body::-webkit-scrollbar { width: 0 !important }
     top: 12%; 
     left: 25px;
     width: 250px;
-    height: 50%;
+    height: 700px;
     background-color: #18181800;
     border-radius: 5px;
-  }
+
+    max-height: 1200px !important;
+    overflow-y: auto !important;
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 0em !important; 
+}
+
+.sidebar-scroll{
+    background-color: rgba(73, 73, 73, 0.39);
+    max-height: 400px !important;
+    overflow-y: auto; 
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+    width: 0em !important; 
+}
 
 .icon-panel{
     width: 35px;
@@ -215,6 +232,8 @@ body::-webkit-scrollbar { width: 0 !important }
 .custom-number_phone::placeholder{
     color: rgb(107, 107, 107);
 }
+
+
 
 @media screen and (max-width: 1720px) {
     .sidebar {
